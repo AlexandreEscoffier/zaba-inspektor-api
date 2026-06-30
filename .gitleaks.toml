@@ -1,0 +1,10 @@
+title = "Zaba Inspektor Gitleaks config"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "zaba-demo-secret"
+description = "Detect fake demo secret for DevSecOps TP"
+regex = '''zaba_demo_secret_[a-zA-Z0-9]{20,}'''
+tags = ["demo", "secret", "zaba"]
