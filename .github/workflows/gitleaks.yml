@@ -1,39 +1,24 @@
-﻿name: CI/CD WrongSecrets
+﻿name: Gitleaks Scan
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
-  gitleaks-scan:
+  gitleaks:
+    name: Detect hardcoded secrets
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
-      - name: Run Gitleaks scan
-        uses: gitleaks/gitleaks-action@v2
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  deploy:
-    needs: gitleaks-scan
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Install Railway CLI
-        run: npm install -g @railway/cli
-
-      - name: Deploy to Railway
-        run: railway up --service wrongsecrets-alex
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
