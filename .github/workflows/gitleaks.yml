@@ -1,15 +1,15 @@
-﻿name: DevSecOps - Gitleaks
+﻿name: Gitleaks Scan
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
   gitleaks:
-    name: Scan secrets with Gitleaks
+    name: Detect hardcoded secrets
     runs-on: ubuntu-latest
 
     steps:
