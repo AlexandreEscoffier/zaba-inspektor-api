@@ -1,7 +1,6 @@
 @"
 __pycache__/
 *.pyc
-.env
 venv/
 .env.local
 "@ | Out-File -Encoding utf8 .gitignore
